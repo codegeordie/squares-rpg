@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<link href='https://fonts.googleapis.com/css?family=MedievalSharp' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative' rel='stylesheet' type='text/css'>
+	<title>RPG Squares</title>
+</head>
+<body>
+	
+<div class="wrapper">
+	<div class="boxSpecial">    							<!-- top left -->
+		<div id="characterButton">
+			<p id="playerLevel"></p>
+		</div>
+
+
+		<div id="helpButton" class="highlightSlot">
+			<p id="helpText">?</p>
+		</div>
+
+
+		<div id="characterWrapper">
+			<div id="characterExperience">
+				<h2>Experience</h2>
+				<p id="playerXPtext"></p>
+				<div id="playerXP" class="barWrapper">
+					<div id="playerXPbar" class="bar"></div>
+				</div>
+			</div>
+			<div class="characterHalves">
+				<div class="info">
+					<h2>Vitality</h2>
+					<p id="charVit">10</p>
+				</div>
+
+				<div class="subtext">
+					<p id="effectVit"></p>
+				</div>
+
+				<div class="info">
+					<h2>Strength</h2>
+					<p id="charStr">10</p>
+				</div>
+
+				<div class="subtext">
+					<p id="effectStr"></p>
+				</div>
+
+				<div class="info">
+					<h2>Stamina</h2>
+					<p id="charStam">10</p>
+				</div>
+
+				<div class="subtext">
+					<p id="effectStam"></p>
+				</div>
+
+				<div class="info">
+					<h2>Dexterity</h2>
+					<p id="charDex">10</p>
+				</div>
+				
+				<div class="subtext">
+					<p id="effectDex"></p>
+				</div>
+
+				<div id="availableStatPoints" class="info">
+				
+				</div>
+
+			</div>
+			<div class="characterHalves">	<!-- empty -->
+			</div>
+
+		</div>
+
+
+
+	</div>
+	<div id="box1" class="box">									<!-- top middle -->
+		<div id="box1lvl" class="boxLevelText"></div>
+	</div>
+	<div class="boxSpecial">									<!-- top right -->
+		<div id="trash" class="slot"></div>
+		<div id="combatLogWrapper">
+			<p id="combatLog"></p>
+		</div>
+	</div>
+	<div id="box2" class="box">									<!-- center left -->
+		<div id="box2lvl" class="boxLevelText"></div>
+	</div>
+	<div id="center" class="box">								<!-- center middle-->
+
+		<div id="playerHP" class="barWrapper">
+			<div id="playerHPbar" class="bar"></div>
+			<p id="playerHPtext"></p>
+		</div>
+		<div id="playerAP" class="barWrapper">
+			<div id="playerAPbar" class="bar"></div>
+			<div id="playerActionOverlay">
+				<div class="actionpoint"></div>
+				<div class="actionpoint"></div>
+				<div class="actionpoint"></div>
+				<div class="actionpoint"></div>
+				<div class="actionpoint"></div>
+			</div>
+		</div>
+		<div id="playerINFOtitle"></div>
+		<div id="playerINFO"></div>
+
+	</div>
+	<div id="box3" class="box">									<!-- center right -->
+		<div id="box3lvl" class="boxLevelText"></div>
+	</div>
+	<div id="inv" class="boxSpecial">							<!-- bottom left -->
+		<div id="slot1" class="slot"></div>
+		<div id="slot2" class="slot"></div>
+		<div id="slot3" class="slot"></div>
+		<div id="slot4" class="slot"></div>
+		<div id="slot5" class="slot"></div>
+		<div id="slot6" class="slot"></div>
+		<div id="slot7" class="slot"></div>
+		<div id="slot8" class="slot"></div>
+		<div id="slot9" class="slot"></div>
+	</div>
+	<div id="box4" class="box">									<!-- bottom middle -->
+		<div id="box4lvl" class="boxLevelText"></div>
+	</div>
+	<div id="hotbar" class="boxSpecial">						<!-- bottom right -->
+		<div id="hot1" class="actionSquare"></div>
+		<div id="hot2" class="actionSquare"></div>
+		<div id="hot3" class="actionSquare"></div>
+		<div id="hot4" class="actionSquare"></div>
+	</div>
+
+
+
+
+
+</div>
+
+<div id="tutorial" class="tutorialActive">
+	<div class="centerhelp">
+		<p>	Welcome to RPGSquares!<br><br>
+			Your health and actionpoints(AP) are in the center pane.<br>Click the top left to see your stats and level up.<br>The four squares around you are your options to explore.<br>Find monsters, treasure, or health.&nbsp;&nbsp;<br>Pay attention to the level of the square before you choose it.<br><br>
+			The bottom left is your inventory, click on items to move them.<br>To get rid of an item, move it to the trash in the upper right.<br><br>
+			The bottom right are your attacks.&nbsp;&nbsp;Click them to defeat monsters in turn-based combat.&nbsp;&nbsp;Weapons and shields grant special attacks, so itemize carefully.<br><br>
+			Pay attention to highlighted squares if you get lost!<br><br>
+			Good luck!
+		</p>
+		<div id="endhelp">Got It</div>
+	</div>	
+</div>
+
+<div id="gameover">
+	<h2>You Died</h2>
+	<div id="retry" class="deathButton">restart</div>
+	<div id="easymode" class="deathButton">easy mode</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

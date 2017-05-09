@@ -1,0 +1,893 @@
+/* 
+REFERENCE
+
+font-family: 'Cinzel Decorative', cursive;
+font-family: 'MedievalSharp', cursive;
+
+colors:
+	background			#00171d		rgba(0,23,29,1)
+	highlight lt.bl		#4dfffe		rgba(77,255,254,1)
+	highlight ylw		#fffe4d		rgba(255,254,77,1)
+	highlight dk.bl		#4d4eff		rgba(77,78,255,1)
+	green means go		#0eae21		rgba(14,174,33,1)
+	red means danger	#e10e0e		rgba(225,14,14,1)
+	healthbar			#720707		rgba(114,7,7,1)
+	monster 			#2c1c3c		rgba(44,28,60,1)
+	monster health		#1bdf14		rgba(27,223,20,1)
+	treasure			#ffa54d		rgba(255,165,77,1)
+
+*/
+
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+body {
+	background: #00171d;
+	font-family: 'Cinzel Decorative', cursive;
+}
+
+/*  --------------------------- primary grid  ------------------------- */
+
+.wrapper {
+	width: 580px;
+	margin: 10px auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.boxSpecial {			/* corner boxes */
+	flex: 0 0 180px;
+	max-width: 180px;
+	height: 180px;
+	margin: 5px;
+	position: relative;
+	box-sizing: border-box;
+	text-align: center;
+	color: #fff;
+	visibility: hidden;
+}
+
+.box {					/* cross boxes */
+	flex: 0 0 180px;
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	height: 180px;
+	margin: 5px;
+	box-sizing: border-box;
+	background: #00171d;
+	border: 5px solid transparent;
+	text-align: center;
+	color: #fff;
+	transition: 1.5s;
+}
+.box:hover{
+	opacity: 1;
+}
+.box::before {			/* normal drop shadow hover effect  */
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -2;
+	box-shadow: 0 0 25px 5px #00171d;
+	transition: .7s;
+}
+.box:hover::before {
+	box-shadow: 0 0 25px 5px #4dfffe;
+}
+
+.blank {				/* DOM class hides cross boxes */
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.boxLevelText {
+	font-family: 'MedievalSharp', cursive;
+	font-size: 5em;
+	position: absolute;
+	top: 35px;
+	left: 35px;
+	height: 100px;
+	width: 100px;
+	line-height: 100px;
+	text-align: center;
+	pointer-events: none;
+	transition: .5s;
+}
+
+/* transform from .boxLevelText above */
+.treasureChest.charm{		
+	background: black;
+	box-shadow: inset 0 0 15px 10px rgba(77,255,254,1);
+	transition: 1.5s;
+}
+.treasureChest.weapon {
+	background: black;
+	box-shadow: inset 0 0 15px 10px rgba(255,254,77,1);
+	transition: 1.5s;
+}
+.treasureChest.armor {
+	background: black; /*   rgba(255,165,77,1);    */
+	box-shadow: inset 0 0 15px 10px rgba(77,78,255,1);
+	transition: 1.5s;
+}
+
+
+/*  --------------------------- primary box classes  ------------------------- */
+.active {
+	flex: 0 0 180px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	height: 180px;
+	margin: 5px;
+	box-sizing: border-box;
+	background: #00171d;
+	border: 5px solid transparent;
+	text-align: center;
+	color: #fff;
+	transition: .7s;
+}
+.active::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -2;
+	box-shadow: 0 0 60px 20px rgba(225,14,14,1);
+	transition: .7s;
+}
+
+.health{
+	border: 5px solid rgba(114,7,7,1);
+	background: rgba(114,7,7,.3);
+	cursor: pointer;
+	transition: 1.7s;
+}
+.health:hover {
+	background: rgba(114,7,7,.7);
+}
+
+.monster {
+	border: 5px solid black;
+	background: rgba(44,28,60,.3);
+	/* background: rgba(1,55,31,.3);  */
+	cursor: pointer;
+	transition: 1.7s;
+}
+.monster:hover {
+	background: rgba(44,28,60,.7);
+	/* background: rgba(1,55,31,.7);  */
+}
+
+.specialMonster {
+	border: 5px solid rgba(255,165,77,.3);
+	background: rgba(44,28,60,.3);
+	cursor: pointer;
+	transition: 1.7s;
+}
+.specialMonster:hover {
+	background: rgba(44,28,60,.7);
+}
+
+
+
+.treasure {
+	border: 5px solid rgba(255,165,77,1);
+	background: rgba(255,165,77,.4);
+	cursor: pointer;
+	transition: 1.7s;
+}
+.treasure:hover {
+	background: rgba(255,165,77,.7);
+}
+
+.monsterHP {
+	flex: 1 1 180px;
+	position: relative;
+	height: 20px;
+	box-sizing: border-box;
+	border: 2px solid rgba(225,14,14,1);
+	color: rgba(255,255,255,0.1);
+	transition: .5s;
+	pointer-events: none;
+}
+
+.monsterHPbar {
+	height: 16px;
+	width: 70%;
+	background: rgba(225,14,14,1);
+	pointer-events: none;
+}
+
+.monsterHPtext	{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 16px;
+	width: 170px;
+	opacity: .6;
+	transition: .2s;
+}
+.monsterHPtext:hover {
+	opacity: 1;
+}
+
+
+
+
+
+/*   --------------------------- center box ids and classes -------------------------   */
+#center{
+	display: flex;
+	flex-wrap: wrap;
+	border: 5px solid transparent;
+	color: rgba(255,255,255,.5);
+}
+.centerPrompt {
+	cursor: pointer;
+}
+.centerPrompt::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -2;
+	box-shadow: 0 0 60px 20px #0eae21;
+	transition: 1.5s;
+}
+
+.barWrapper {
+	flex: 1 1 180px;
+	height: 20px;
+	box-sizing: border-box;
+}
+
+.bar {
+	height: 16px;
+	transition: .5s;
+}
+
+#playerHP {
+	border: 2px solid #720707;
+	position: relative;
+}
+
+#playerHPbar {				/* center health bar */
+	width: 5%;
+	background: #720707;
+}
+
+#playerHPtext {
+	position: absolute;
+	top: -3px;
+	left: 0;
+	height: 20px;
+	width: 166px;
+	opacity: 0;
+	transition: .2s;
+}
+#playerHPtext:hover{
+	opacity: 1;
+}
+
+#playerAPbar {			/*  center actionpoint bar */
+	height: 20px;
+	width: 50%;
+	background: #4dfffe;
+	opacity: .5;
+}
+
+#playerXP {
+	flex: 0 0 400px;
+	height: 10px;
+	margin: 0 0 10px 0;
+	border-bottom: 1px solid #eee;
+}
+
+#playerXPbar {
+	width: 5%;
+	height: 10px;
+	background: #eee;
+}
+
+#playerActionOverlay {     /* wrapper for actionpoint squares */
+	height: 20px;
+	position: relative;
+	top: -20px;
+	display: flex;
+	max-width: 180px;
+}
+
+.actionpoint {				/* actionpoint square */
+	flex: 1 1 10px;
+	height: 20px;
+	border: 1px solid #00171d;
+}
+
+#playerINFOtitle {
+	flex: 1 1 180px;
+	height: 30px;
+	line-height: 30px;
+	font-size: .9em;
+	border-bottom: 1px solid rgba(77,255,254,.3);
+	pointer-events: none;
+}
+
+#playerINFO {
+	flex: 1 1 180px;
+	height: 100px;
+	line-height: 25px;
+	font-size: .8em;
+	text-align: center;
+	pointer-events: none;
+}
+
+
+
+/*   -------------------------- inventory pane ids and classes ---------------------------  */
+#inv {
+	display: flex;
+	flex-wrap: wrap;
+	transition: .7s;
+}
+
+.highlightInv {			/* normal highlight */
+	visibility: visible;
+	box-shadow: 0 0 25px 0px rgba(77,255,254,.7);
+	transition: .7s;
+}
+
+.highlightInvWeap {				/* yellow weapon highlight */
+	visibility: visible;
+	box-shadow: 0 0 25px 0px rgba(255,254,77,1);
+	transition: .7s;
+}
+
+.highlightInvArm {			/* dk.blue armor highlight */
+	visibility: visible;
+	box-shadow: 0 0 25px 0px rgba(77,78,255,1);
+	transition: .7s;
+}
+
+#trash {
+	visibility: visible;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 60px;
+	width: 60px;
+	z-index: 2;
+}
+#trash:hover{
+	background: none;
+}
+
+.highlightTrash {
+	box-shadow: 0 0 5px 5px rgba(225,14,14,1);
+}
+
+.highlightTrashPotion {
+	box-shadow: 0 0 5px 5px rgba(14,174,33,1);
+}
+
+
+
+.slot {
+	visibility: visible;
+	flex: 1 1 60px;
+	height: 60px;
+	box-sizing: border-box;
+	transition: .5s;
+}
+
+.slot:hover {
+	background: rgba(77,255,254,.15);
+	opacity: 1;
+}
+
+#slot1:hover, #slot3:hover {  	/* yellow weapon hover */
+	background: rgba(255,254,77,.5);
+	opacity: 1;
+}
+#slot2:hover{					/* dk.blue armor hover */
+	background: rgba(77,78,255,.5);
+	opacity: 1;
+}
+
+.equipped {
+	background: rgba(77,255,254,.3);
+}
+
+.equipped:hover {
+	background: rgba(77,255,254,.8);
+}
+
+.potion {
+	background: rgba(14,174,33,.3);
+}
+
+.potion:hover {
+	background: rgba(14,174,33,.8);
+}
+
+#slot1.equipped, #slot3.equipped{  				/* yellow wepaon equipped */
+	background: rgba(255,254,77,.3);
+}
+#slot1.equipped:hover, #slot3.equipped:hover{	/* yellow weapon equipped hover */
+	background: rgba(255,254,77,.8);
+}
+
+#slot2.equipped {								/* dk.blue armor equipped */
+	background: rgba(77,78,255,.3);
+
+}
+#slot2.equipped:hover {							/* dk.blue armor equipped hover */
+	background: rgba(77,78,255,.8);
+
+}
+
+
+/* interior borders for inventory and hotbar */
+#slot2 {
+	border-left: 1px solid rgba(77,255,254,.5);
+	border-right: 1px solid rgba(77,255,254,.5);
+}
+#slot4 {
+	border-top: 1px solid rgba(77,255,254,.5);
+	border-bottom: 1px solid rgba(77,255,254,.5);
+}
+#slot5 {
+	border: 1px solid rgba(77,255,254,.5);
+}
+#slot6 {
+	border-top: 1px solid rgba(77,255,254,.5);
+	border-bottom: 1px solid rgba(77,255,254,.5);
+}
+#slot8 {
+	border-left: 1px solid rgba(77,255,254,.5);
+	border-right: 1px solid rgba(77,255,254,.5);
+}
+
+#hot1 {
+	border-bottom: 1px solid rgba(77,255,254,1);
+	border-right: 1px solid rgba(77,255,254,1);
+}
+#hot2 {
+	border-bottom: 1px solid rgba(77,255,254,1);
+}
+#hot3 {
+	border-right: 1px solid rgba(77,255,254,1);
+}
+/* end interior borders */
+
+
+
+/* -------------------------------  hotbar/action button ids and classes ------------------------  */
+#hotbar {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.actionSquare {
+	visibility: visible;
+	flex: 1 1 90px;
+	max-width: 90px;
+	height: 90px;
+	line-height: 90px;
+	box-sizing: border-box;
+	background: #00171d;
+	opacity: 0.2;
+	font-size: 2.5em;
+	cursor: pointer;
+	transition: .5s;
+	-webkit-backface-visibility: hidden;
+}
+.actionSquare:hover {
+	background: rgba(77,255,254,.5);
+	opacity: 1;
+}
+
+.actionSquareWeap {
+	box-shadow: 0 0 20px 0px rgba(255,254,77,1);
+	opacity: .5;
+	transition: .5s;
+	border: none !important;
+}
+
+.highlightActionSquare {
+	opacity: .7;
+}
+
+.highlightHotbar{
+	visibility: visible;
+	box-shadow: 0 0 25px 0px rgba(77,255,254,1);
+	transition: .7s;
+}
+
+.highlightSpecialAction {
+	box-shadow: 0 0 10px 5px rgba(255,254,77,1);
+}
+
+.highlightWeap {
+	box-shadow: 0 0 5px 5px rgba(255,254,77,1);
+	border: none !important;
+	opacity: 1 !important;
+}
+
+.highlightArm {
+	box-shadow: 0 0 8px 7px rgba(77,78,255,1);
+	border: none !important;
+	opacity: 1 !important;
+}
+
+
+
+/* -------------------------------- combat log -------------------------------------  */
+#combatLogWrapper {
+	width: 180px;
+	height: 180px;
+	overflow: hidden;
+	position: relative;
+	visibility: visible;
+}
+#combatLog {
+	position: absolute;
+	visibility: visible;
+	bottom: 0;
+	left: 0px;
+	font-size: .8em;
+	line-height: 15px;
+	text-align: left;
+	opacity: .6;
+	width: 180px;
+}
+
+.out {
+	color: white;
+}
+.in {
+	color: red;
+}
+.crit {
+	color: yellow;
+}
+.critin {
+	color: orange;
+}
+
+
+
+
+
+
+
+/*  ------------------------------ character pane ids and classes  -------------------------------- */
+#characterButton {
+	visibility: visible;
+	position: relative;
+	height: 60px;
+	width: 60px;
+	box-sizing: border-box;
+	border: 1px solid rgba(77,255,254,.3);
+	z-index: 5;
+	transition: 1s;
+	cursor: pointer;
+}
+
+#helpButton {
+	visibility: visible;
+	position: absolute;
+	top: 0px;
+	left: 70px;
+	height: 60px;
+	width: 60px;
+	box-sizing: border-box;
+	border: 1px solid rgba(77,255,254,.3);
+	z-index: 2;
+	transition: 2.5s;
+	cursor: pointer;
+}
+#helpButton:hover {
+	opacity: 1 !important;
+	transition: .7s;
+}
+
+#helpText {
+	font-size: 3em;
+	line-height: 60px;
+	font-family: 'MedievalSharp', cursive;
+	opacity: .6;
+}
+
+.highlightSlot {	/* character button highlight */
+	box-shadow: 0 0 20px 5px rgba(255,254,77,1);
+}
+
+#playerLevel {
+	font-size: 3em;
+	line-height: 60px;
+	font-family: 'MedievalSharp', cursive;
+	opacity: .6;
+	transition: .2s;
+}
+#playerLevel:hover {
+	opacity: 1;
+}
+
+#characterWrapper {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	top: -60px;
+	left: 0px;
+	visibility: visible;
+	box-sizing: border-box;
+	height: 60px;
+	width: 60px;
+	background: #00171d;
+	border: 1px solid rgba(77,255,254,1);
+	overflow: hidden;
+	z-index: 3;
+	transition: .4s;
+	opacity: 0;
+}
+
+#characterWrapper.open {
+	height: 560px;
+	width: 560px;
+	opacity: .88;
+	transition: .4s;
+}
+
+#characterExperience {
+	flex: 0 0 550px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-items: flex-end;
+	height: 60px;
+	padding-right: 20px;
+	pointer-events: none;
+	border-bottom: 1px solid rgba(77,255,254,1);
+}
+#characterExperience h2 {
+	flex: 0 1 200px;
+	height: 30px;
+	line-height: 50px;
+	text-align: left;
+	font-size: 1em;
+}
+#characterExperience p {
+	flex: 0 1 200px;
+	height: 30px;
+	line-height: 50px;
+	text-align: right;
+	font-size: .8em;
+}
+
+.characterHalves {
+	flex: 1 0 20px;
+	height: 500px;
+	border-left: 1px solid rgba(77,255,254,.3);
+	box-sizing: border-box;
+}
+
+.info {
+	display: flex;
+	height: 50px;
+	margin: 10px 5px 0 5px;
+}
+
+.info h2 {
+	flex: 1 1 200px;
+	height: 50px;
+	line-height: 30px;
+	color: #fff;
+	font-size: 1em;
+	text-align: left;
+	pointer-events: none;
+}
+
+.info p {
+	flex: 0 0 50px;
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	font-family: 'MedievalSharp', cursive;
+	color: #fff;
+	font-size: 2em;
+	box-sizing: border-box;
+	border: 1px solid rgba(77,255,254,.5);
+	border-radius: 25px;
+	opacity: .8;
+	transition: .3s; 
+	cursor: pointer;
+	margin-right: 7px;
+	will-change: opacity;
+}
+
+.info p:hover {
+	border: 1px solid rgba(77,255,254,1);
+	opacity: 1;
+
+}
+
+.info p.highlightStat {
+	box-shadow: 0 0 10px 5px rgba(255,254,77,1);
+}
+
+.subtext {
+	position: relative;	
+	height: 50px;
+	margin: 0 5px 0px 5px;
+	pointer-events: none;
+}
+
+.subtext p {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 260px;
+	height: 50px;
+	line-height: 16px;
+	font-size: .8em;
+	text-align: left;
+	font-family: 'Cinzel Decorative', cursive;
+	border-bottom: 1px solid rgba(77,255,254,.3);
+	pointer-events: none;
+	will-change: opacity;
+}
+
+#availableStatPoints {
+	flex: 1 1 10px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 2em;
+	font-family: 'MedievalSharp', cursive;
+	pointer-events: none;
+}
+
+
+
+/*  ------------------------------ help screen  ------------------------------------ */
+
+#tutorial {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.6);
+	transition: .5s;
+}
+
+.tutorialActive {
+	visibility: visible;
+	z-index: 5;
+	opacity: 1;
+}
+
+.tutorialHidden {
+	visibility: hidden;
+	z-index: -5;
+	opacity: 0;
+	pointer-events: none;
+}
+
+
+.centerhelp {
+	margin: 100px auto;
+	width: 560px;
+	height: 460px;
+	text-align: center;
+	color: #fff;
+	font-size: .9em;
+	cursor: default;
+}
+
+#endhelp {
+	margin: 50px auto;
+	width: 120px;
+	height: 40px;
+	border: 1px solid rgba(77,255,254,.5);
+	line-height: 40px;
+	text-align: center;
+	font-size: 1.2em;
+	color: #fff;
+	box-shadow: 0 0 20px 5px rgba(255,254,77,1);
+	transition: .2s;
+}
+
+#endhelp:hover {
+	border: 1px solid rgba(77,255,254,1);
+}
+
+#gameover {
+	display: none;
+	position: absolute;
+	top: 200px;
+	left: calc(50% - 200px);
+	height: 200px;
+	width: 400px;
+	z-index: 6;
+	border: 2px solid rgba(77,255,254,.5);
+	background: rgba(0,0,0,.9);
+	opacity: 0;
+}
+
+#gameover::after {
+	content: "";
+	position: absolute;
+	top: -3px;
+	left: -3px;
+	right: -3px;
+	bottom: -3px;
+	z-index: 5;
+	box-shadow: 0px 0px 100px 40px #000;
+}
+
+#gameover h2 {
+	width: 100%;
+	text-align: center;
+	line-height: 3em;
+	color: red;
+	font-size: 3em;
+}
+
+.deathButton {
+	position: absolute;
+	bottom: 20px;
+	width: 120px;
+	height: 40px;
+	z-index: 6;
+	border: 1px solid rgba(77,255,254,.3);
+	line-height: 40px;
+	text-align: center;
+	font-size: 1.2em;
+	color: #fff;
+	transition: .5s;
+	cursor: pointer;
+}
+
+#retry {
+	left: calc(30% - 60px);
+}
+
+#retry:hover {
+	box-shadow: 0 0 15px 3px rgba(255,254,77,1);
+}
+
+#easymode {
+	right: calc(30% - 60px);
+	opacity: .3;
+}
+
+#easymode:hover {
+	opacity: 1;
+	box-shadow: 0 0 15px 3px rgba(14,174,33,1);
+}
+
+@keyframes death {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
